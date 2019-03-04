@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <title>V3 Embed Generator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column text-center">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h1 class="text-center">Vidyard v3 Embed Generator</h1>
+          <h5 class="text-center">Use this tool to generate Vidyard v3 embed codes from your player UUID</h5>
+        </div>
+      </header>
+      <main role="main" class="inner cover">
+        <h3 class="cover-heading">Enter your Player UUID here</h3>
+        <form id="uuid-form" class="input-group">
+            <input type="text" class="form-control required" id="uuid-input" required placeholder="Player UUID">
+            <button type="submit" id="create-embed" class="btn btn btn-lg btn-secondary">Submit</button>
+        </form>
+        <h3 id="sharing-page-text" class="text-white">v3 Embed Code:</h3>
+        <form id="v3-container" class="input-group">
+          <input type="text" class="form-control" id="v3-copy" placeholder="v3 embed" aria-label="v3 embed" aria-describedby="basic-addon2" value="">
+          <button type="submit" id="copy" class="btn btn btn-lg btn-secondary">Copy</button>
+        </form>
+      </main>
+      <footer class="mastfoot mt-auto">
+      </footer>
+    </div>
+    <script type="text/javascript">
+      var input;
+      var v3EmbedCode;
+    $(function () {
+      $('#uuid-form').on('submit', function (e) {
+        e.preventDefault();
+        var input = document.getElementById("uuid-input").value;
+        var v3EmbedCode = '<script type="text/javascript" id="vidyard_embed_code_'+input+'" src="//play.vidyard.com/'+input+'.js?v=3.1.1&type=inline">\<\/script\>';
+        $('#v3-container input')[0].value = v3EmbedCode;
+        console.log('Success!');
+      });
+    })
+
+    $(function () {
+      $('#v3-container').on('submit', function(e) {
+        e.preventDefault();
+        var embedCopy = document.getElementById('v3-copy').value;
+        $('#v3-copy').focus();
+        $('#v3-copy').select();
+        window.getSelection('embedCopy');
+        $("#copy").attr("data-clipboard-text");
+        document.execCommand("copy");
+        console.log('Embed Code Copied!');
+      });
+    })
+    </script>
+</body>
+</html>
